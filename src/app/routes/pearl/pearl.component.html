@@ -1,13 +1,15 @@
-<div class="flex gap-2 p-2">
-  <div class="flex flex-col [&_button]:w-full gap-2">
-    <p-button (onClick)="getPearlItems('3 hours')" label="3 Hours"></p-button>
-    <p-button (onClick)="getPearlItems('12 hours')" label="12 Hours"></p-button>
-    <p-button (onClick)="getPearlItems('24 hours')" label="24 Hours"></p-button>
-    <p-button (onClick)="getPearlItems('3 days')" label="3 Days"></p-button>
-    <p-button (onClick)="getPearlItems('1 week')" label="1 Week"></p-button>
-    <p-button (onClick)="getPearlItems('2 weeks')" label="2 Weeks"></p-button>
+<div class="flex flex-col gap-2 p-2">
+  <!-- <div class="flex flex-col [&_button]:w-full gap-2">
+    @for (item of windowHours | keyvalue: null; track $index) {
+      <p-button [label]="item.key" (onClick)="getPearlItems(item.value)"></p-button>
+    }
+  </div> -->
+  <div class="flex items-center gap-5 mx-auto">
+    <span>Time interval:</span>
+    <p-slider class="w-100" #slider [min]="0" [max]="48" [step]="1" [ngModel]="3" (ngModelChange)="getPearlItems($event <= 21 ? $event + 3 : ($event - 20) * 24)" />
+    <span>{{ slider.value! <= 20 ? slider.value! + 3 + " hours" : slider.value! < 27 ? slider.value! - 20 + (slider.value! === 21 ? " day" : " days") : (slider.value! - 20 - ((slider.value! - 20) % 7)) / 7 + (slider.value! < 34 ? " week" : " weeks") + ((slider.value! - 20) % 7 ? " " + ((slider.value! - 20) % 7) + ((slider.value! - 20) % 7 === 1 ? " day" : " days") : "") }}</span>
   </div>
-  <p-table class="grow" [value]="pearlItems">
+  <p-table class="grow" [value]="pearlItems()" [sortOrder]="-1" sortField="Percentage">
     <ng-template #header>
       <tr>
         <th>Name</th>
@@ -24,17 +26,31 @@
           %
           <p-sortIcon field="Percentage" />
         </th>
-        <th>Estimated Time</th>
+        <th pSortableColumn="EstimatedHours">
+          Estimated Time
+          <p-sortIcon field="EstimatedHours" />
+        </th>
       </tr>
     </ng-template>
     <ng-template #body let-item>
       <tr>
         <td class="w-full">{{ item.Name }}</td>
-        <td>{{ item.Itemid }}</td>
+        <td class="p-button-link">
+          <a class="p-button-label" href="https://bdocodex.com/us/item/{{ item.Itemid }}" target="_blank">{{ item.Itemid }}</a>
+        </td>
         <td>{{ item.Sold }}</td>
         <td>{{ item.Preorders }}</td>
         <td>{{ item.Percentage }}</td>
-        <td></td>
+        <td>
+          {{ item.EstimatedHours === null ? "-" : item.EstimatedHours + " h" }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td class="text-center!" colspan="6">
+          <div class="text-2xl p-20 bg-gray-500/50 rounded-2xl">No data.</div>
+        </td>
       </tr>
     </ng-template>
   </p-table>

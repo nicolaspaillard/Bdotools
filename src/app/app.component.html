@@ -1,5 +1,0 @@
-<div class="flex flex-row justify-center gap-2 bg-gray-200 p-2">
-  <p-button label="Home" routerLink="/" routerLinkActive="[&_button]:bg-transparent" [routerLinkActiveOptions]="{ exact: true }" />
-  <p-button *ngFor="let route of routes" [label]="route.title + ''" [routerLink]="route.path" routerLinkActive="[&_button]:bg-transparent" />
-</div>
-<router-outlet />

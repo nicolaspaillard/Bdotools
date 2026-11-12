@@ -1,6 +1,6 @@
 {
   "prettier.configPath": ".vscode/.prettierrc",
-  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list", "menuStyleClass", "headerStyleClass", "contentStyleClass", "tabStyleClass", "styleClass", "routerLinkActive", "[ngClass]"],
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list", "menuStyleClass", "headerStyleClass", "contentStyleClass", "panelStyleClass", "tabStyleClass", "styleClass", "chooseStyleClass", "routerLinkActive", "[ngClass]"],
   "workbench.editor.customLabels.enabled": true,
   "workbench.editor.customLabels.patterns": {
     "**/root/*/*.*": "${dirname(1)}/${filename}.${extname(-2)}",
@@ -14,15 +14,18 @@
   "workbench.editor.labelFormat": "default",
   "prettier.bracketSameLine": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[sass]": {
-    "editor.defaultFormatter": "syler.sass-indented"
-  },
   "files.autoSave": "onFocusChange",
   "files.associations": {
-    "*.css": "css",
-    "css": "css"
+    "*.css": "tailwindcss",
+    "*.scss": "tailwindcss",
+    "*.sass": "sass"
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "[sass]": {
+    "editor.defaultFormatter": "syler.sass-indented"
+  },
+  "tailwindCSS.experimental.configFile": "src/styles.css",
+  "css.styleSheets": ["node_modules/@openng/icons/openng-icons.css", "src/styles.scss"]
 }

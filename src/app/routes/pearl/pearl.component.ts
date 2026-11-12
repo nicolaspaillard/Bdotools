@@ -1,45 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { PearlItem } from '@models/pearl-item';
+import { ButtonModule } from '@openng/optimus-ui/button';
+import { SliderModule } from '@openng/optimus-ui/slider';
+import { TableModule } from '@openng/optimus-ui/table';
 import { MarketService } from '@services/market.service';
-import { Button } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-pearl',
-  imports: [TableModule, Button],
+  imports: [TableModule, ButtonModule, SliderModule, FormsModule],
   templateUrl: './pearl.component.html',
   styles: ``,
 })
 export class PearlComponent {
-  pearlItems: PearlItem[] = [];
-  constructor(private marketService: MarketService) {
-    this.marketService.pearlItems().subscribe((items) => {
-      console.log(items);
-      this.pearlItems = items;
-    });
+  pearlItems = signal<PearlItem[]>([]);
+  private marketService = inject(MarketService);
+  constructor() {
+    this.marketService.pearlItems().subscribe(items => this.pearlItems.set(items));
   }
-  getPearlItems = (at: string) => {
-    let date: Date;
-    switch (at) {
-      default:
-        date = new Date(new Date().valueOf() - 3 * 3600000);
-        break;
-      case '12 hours':
-        date = new Date(new Date().valueOf() - 12 * 3600000);
-        break;
-      case '24 hours':
-        date = new Date(new Date().valueOf() - 24 * 3600000);
-        break;
-      case '3 days':
-        date = new Date(new Date().valueOf() - 3 * 86400000);
-        break;
-      case '1 week':
-        date = new Date(new Date().valueOf() - 7 * 86400000);
-        break;
-      case '2 weeks':
-        date = new Date(new Date().valueOf() - 14 * 86400000);
-        break;
-    }
-    this.marketService.getPearlItems(date);
-  };
+  getPearlItems = (hours: number) => this.marketService.getPearlItems(new Date(Date.now() - hours * 3600000));
 }

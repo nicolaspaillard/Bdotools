@@ -1,50 +1,31 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import '@angular/common/locales/global/fr';
-import { provideZoneChangeDetection } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
+import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { initializeAppCheck, provideAppCheck, ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, Routes, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
-import Aura from '@primeuix/themes/aura';
-import { providePrimeNG } from 'primeng/config';
-import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { routes } from '@app/app.routes';
+import Aura from '@openng/optimus-ui-themes/aura';
+import { provideOptimus } from '@openng/optimus-ui/config';
+import { App } from './app/app';
 
-export const routes: Routes = [
-  { path: '', title: 'Bdo Tools', loadComponent: () => import('@routes/home/home.component').then((m) => m.HomeComponent), data: { animation: 0 } },
-  { path: 'trade', title: 'Trade calculator', loadComponent: () => import('@routes/trade/trade.component').then((m) => m.TradeComponent), data: { animation: 0 } },
-  { path: 'pearl', title: 'Pearl items', loadComponent: () => import('@routes/pearl/pearl.component').then((m) => m.PearlComponent), data: { animation: 0 } },
-  { path: 'untile', title: 'Untile', loadComponent: () => import('@routes/untile/untile.component').then((m) => m.UntileComponent), data: { animation: 0 } },
-  // { path: 'customizer', title: 'Face Customizer', loadComponent: () => import('@routes/face-customizer/face-customizer.component').then((m) => m.FaceCustomizerComponent), data: { animation: 0 } },
-  { path: '**', redirectTo: '' },
-];
-
-bootstrapApplication(AppComponent, {
+bootstrapApplication(App, {
   providers: [
-    provideHttpClient(withInterceptorsFromDi()),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(
-      routes,
-      withComponentInputBinding(),
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled',
-        anchorScrolling: 'enabled',
-      }),
-    ),
-    provideAnimationsAsync(),
-    providePrimeNG({
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
+    provideOptimus({
       theme: { preset: Aura },
       ripple: true,
+      overlayAppendTo: 'body',
     }),
-    provideFirebaseApp(() => initializeApp({ projectId: 'bdo-tools-8ee84', appId: '1:1080259118563:web:78a0c99876678cf7810cd6', storageBucket: 'bdo-tools-8ee84.firebasestorage.app', apiKey: 'AIzaSyBVgoYHyhh6FlTzfT6Q8RSvp605TJKhn0o', authDomain: 'bdo-tools-8ee84.firebaseapp.com', messagingSenderId: '1080259118563', measurementId: 'G-TSCD1RDJ8F' })),
-    provideAuth(() => getAuth()),
     provideAnalytics(() => getAnalytics()),
     ScreenTrackingService,
     UserTrackingService,
-    provideAppCheck(() => initializeAppCheck(undefined, { provider: new ReCaptchaEnterpriseProvider('6Lc3hfkqAAAAAD6P8tR0RUtwddEQoAVBiBQ4AN22'), isTokenAutoRefreshEnabled: true })),
-    provideFirestore(() => getFirestore()),
+    // provideAppCheck(() =>
+    // initializeAppCheck(getApp(), {
+    // provider: new ReCaptchaEnterpriseProvider("6Lcwe_kqAAAAAA9b5kizgsjvlZNp1_stQSEc5iSs"),
+    // isTokenAutoRefreshEnabled: true,
+    // }),
+    // ),
   ],
-}).catch((err) => console.error(err));
+}).catch(err => console.error(err));

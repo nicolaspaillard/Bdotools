@@ -1,5 +1,5 @@
 export class Item {
-  grade: number;
-  id: number;
-  name: string;
+  grade: number = 0;
+  id: number = 0;
+  name: string = "";
 }

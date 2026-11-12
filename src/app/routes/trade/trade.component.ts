@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { SelectModule } from "@openng/optimus-ui/select";
 
 interface pos {
   x: number;
@@ -22,20 +22,20 @@ interface bdoNode {
 }
 
 @Component({
-  selector: 'app-trade',
+  selector: "app-trade",
   imports: [CommonModule, SelectModule, FormsModule],
-  templateUrl: './trade.component.html',
+  templateUrl: "./trade.component.html",
 })
 export class TradeComponent {
-  distances: { distance: number; town: string }[];
+  distances: { distance: number; town: string }[] = [];
   nodes: bdoNode[] = [];
-  source: pos;
+  source: pos = { x: 0, y: 0, z: 0 };
   towns: bdoNode[] = [];
   constructor() {
-    fetch('https://raw.githubusercontent.com/shrddr/shrddr.github.io/refs/heads/main/workerman/data/loc.json')
+    fetch("https://raw.githubusercontent.com/shrddr/shrddr.github.io/refs/heads/main/workerman/data/loc.json")
       .then((response) => response.json())
       .then((names) => {
-        fetch('https://raw.githubusercontent.com/shrddr/shrddr.github.io/refs/heads/main/workerman/data/exploration.json')
+        fetch("https://raw.githubusercontent.com/shrddr/shrddr.github.io/refs/heads/main/workerman/data/exploration.json")
           .then((response) => response.json())
           .then((nodes) => {
             this.nodes = (Object.keys(nodes).map((v) => ({ ...nodes[v], name: names.en.node[v] })) as bdoNode[]).filter((node) => node.is_main).sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
