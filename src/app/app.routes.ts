@@ -8,12 +8,12 @@ export const routes: Routes = [
   },
   {
     path: 'trade',
-    title: 'Trade calculator',
+    title: 'Trade Calculator',
     loadComponent: () => import('@routes/trade/trade.component').then(m => m.TradeComponent),
   },
   {
     path: 'pearl',
-    title: 'Pearl items',
+    title: 'Pearl Items',
     loadComponent: () => import('@routes/pearl/pearl.component').then(m => m.PearlComponent),
   },
   {
