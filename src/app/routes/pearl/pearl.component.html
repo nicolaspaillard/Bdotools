@@ -5,8 +5,10 @@
     }
   </div> -->
   <div class="flex items-center gap-5 mx-auto">
+    <span>Item type:</span>
+    <p-select class="w-full md:w-56" #select [ngModel]="'outfits'" [options]="['outfits', 'pets']" (ngModelChange)="getPearlItems(slider.value! <= 21 ? slider.value! + 3 : (slider.value! - 20) * 24, $event)" />
     <span>Time interval:</span>
-    <p-slider class="w-100" #slider [min]="0" [max]="48" [step]="1" [ngModel]="3" (ngModelChange)="getPearlItems($event <= 21 ? $event + 3 : ($event - 20) * 24)" />
+    <p-slider class="w-100" #slider [min]="0" [max]="48" [step]="1" [ngModel]="0" (ngModelChange)="getPearlItems($event <= 21 ? $event + 3 : ($event - 20) * 24, select.value)" />
     <span>{{ slider.value! <= 20 ? slider.value! + 3 + " hours" : slider.value! < 27 ? slider.value! - 20 + (slider.value! === 21 ? " day" : " days") : (slider.value! - 20 - ((slider.value! - 20) % 7)) / 7 + (slider.value! < 34 ? " week" : " weeks") + ((slider.value! - 20) % 7 ? " " + ((slider.value! - 20) % 7) + ((slider.value! - 20) % 7 === 1 ? " day" : " days") : "") }}</span>
   </div>
   <p-table class="grow" [value]="pearlItems()" [sortOrder]="-1" sortField="Percentage">

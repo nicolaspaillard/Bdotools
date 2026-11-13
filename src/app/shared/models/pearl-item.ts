@@ -1,12 +1,11 @@
 export class PearlItem {
-  Date: Date = new Date();
   EstimatedHours: number | null = null;
-  ID: number = 0;
-  Itemid: number = 0;
-  Name: string = '';
-  Percentage: number = 0;
-  Preorders: number = 0;
-  Sold: number = 0;
+  ID = 0;
+  Itemid = 0;
+  Name = "";
+  Percentage = 0;
+  Preorders = 0;
+  Sold = 0;
   constructor(pearlItem: PearlItem, windowHours = 3) {
     Object.assign(this, pearlItem);
     this.Percentage = Math.round((1 - Math.exp(-((this.Sold / windowHours) * 24) / (this.Preorders + 1))) * 1000) / 10;

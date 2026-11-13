@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-center gap-2 bg-gray-200 p-2">
+<div class="flex flex-row justify-center gap-2 bg-gray-200 p-2 sticky top-0">
   <p-button [routerLinkActiveOptions]="{ exact: true }" label="Home" routerLink="/" routerLinkActive="[&_button]:bg-transparent!" />
   @for (route of routes; track $index) {
     <p-button [label]="route.title?.toString()" [routerLink]="route.path" routerLinkActive="[&_button]:bg-transparent!" />

@@ -1,0 +1,32 @@
+<div class="container h-full mx-auto py-10 flex flex-col gap-5">
+  <div class="text-center text-2xl">Events</div>
+  <div
+    class="cursor-grab select-none overflow-x-auto active:cursor-grabbing"
+    #scroller
+    (pointerdown)="$event.pointerType === 'mouse' && (scroller.dataset['x'] = '' + $event.clientX); scroller.dataset['left'] = '' + scroller.scrollLeft; scroller.dataset['moved'] = ''"
+    (pointermove)="scroller.dataset['x'] && (scroller.scrollLeft = +scroller.dataset['left']! - ($event.clientX - +scroller.dataset['x']!)); scroller.dataset['x'] && ($event.clientX - +scroller.dataset['x']!) * ($event.clientX - +scroller.dataset['x']!) > 25 && (scroller.dataset['moved'] = '1')"
+    (pointerup)="scroller.dataset['x'] = ''"
+    (pointerleave)="scroller.dataset['x'] = ''"
+    (dragstart)="$event.preventDefault()">
+    <div class="relative pt-5" [style.width.rem]="chartWidth()">
+      <div class="absolute inset-y-0 border-l border-dashed border-gray-400">
+        <span class="absolute top-0 left-1 text-xs">Today</span>
+      </div>
+
+      @for (tick of ticks(); track tick.end) {
+        <div class="absolute inset-y-0 border-l border-dashed border-gray-400" [style.left.rem]="tick.left">
+          <span class="absolute top-0 left-1 text-xs">{{ tick.end | date: "dd/MM" : "CET" }}</span>
+        </div>
+      }
+
+      @for (event of events(); track event.ID) {
+        @let days = (event.End.getTime() - today) / 86400000;
+        <a class="h-5 w-fit flex items-center" [href]="event.Url" (click)="scroller.dataset['moved'] && $event.preventDefault()" target="_blank">
+          <div class="flex h-4 items-center bg-primary rounded-r" [style.width.rem]="(days > 0 ? days : 0) * 2.5">
+            <div class="shrink-0 px-1 leading-none whitespace-nowrap text-sm pb-0.5">{{ event.Title }}</div>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</div>
