@@ -3,13 +3,13 @@
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list", "menuStyleClass", "headerStyleClass", "contentStyleClass", "panelStyleClass", "tabStyleClass", "styleClass", "chooseStyleClass", "routerLinkActive", "[ngClass]"],
   "workbench.editor.customLabels.enabled": true,
   "workbench.editor.customLabels.patterns": {
-    "**/root/*/*.*": "${dirname(1)}/${filename}.${extname(-2)}",
-    "**/root/*.*": "${dirname}/${filename}.${extname(-2)}",
-    "**/routes/**/*.*": "${dirname(1)}/${filename}.${extname(-2)}",
-    "**/*.component.*": "${dirname(1)}/${filename}.${extname(-2)}",
-    "**/index.ts": "${dirname}/index.ts",
-    "**/*.*": "${dirname}/${filename}.${extname}",
-    "**/.*": "${dirname}/${filename}"
+    // "**/root/*/*.*": "${dirname(1)}/${filename}.${extname(-2)}",
+    // "**/root/*.*": "${dirname}/${filename}.${extname(-2)}",
+    // "**/routes/**/*.*": "${dirname(1)}/${filename}.${extname(-2)}",
+    // "**/*.component.*": "${dirname(1)}/${filename}.${extname(-2)}",
+    // "**/index.ts": "${dirname}/index.ts",
+    // "**/*.*": "${dirname}/${filename}.${extname}",
+    // "**/.*": "${dirname}/${filename}"
   },
   "workbench.editor.labelFormat": "default",
   "prettier.bracketSameLine": true,
