@@ -1,20 +1,20 @@
 import { Component, inject, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { PearlItem } from "@models/pearl-item";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { SelectModule } from "@openng/optimus-ui/select";
 import { SliderModule } from "@openng/optimus-ui/slider";
 import { TableModule } from "@openng/optimus-ui/table";
+import { Item } from "@routes/pearl/item";
 import { PearlService } from "@routes/pearl/pearl.service";
 
 @Component({
   selector: "app-pearl",
   imports: [TableModule, ButtonModule, SliderModule, FormsModule, SelectModule],
-  templateUrl: "./pearl.component.html",
+  templateUrl: "./pearl.html",
   styles: ``,
 })
-export class PearlComponent {
-  pearlItems = signal<PearlItem[]>([]);
+export class Pearl {
+  pearlItems = signal<Item[]>([]);
   private pearlService = inject(PearlService);
   constructor() {
     this.getPearlItems(3, "outfits");

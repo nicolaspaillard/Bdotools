@@ -1,7 +1,7 @@
-<div class="container h-full mx-auto py-10 flex flex-col gap-5">
+<div class="flex flex-col gap-5">
   <div class="text-center text-2xl">Events</div>
   <div
-    class="cursor-grab select-none overflow-x-auto active:cursor-grabbing"
+    class="cursor-grab select-none overflow-x-auto active:cursor-grabbing pb-3"
     #scroller
     (pointerdown)="$event.pointerType === 'mouse' && (scroller.dataset['x'] = '' + $event.clientX); scroller.dataset['left'] = '' + scroller.scrollLeft; scroller.dataset['moved'] = ''"
     (pointermove)="scroller.dataset['x'] && (scroller.scrollLeft = +scroller.dataset['left']! - ($event.clientX - +scroller.dataset['x']!)); scroller.dataset['x'] && ($event.clientX - +scroller.dataset['x']!) * ($event.clientX - +scroller.dataset['x']!) > 25 && (scroller.dataset['moved'] = '1')"

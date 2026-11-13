@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { Event } from "@models/event";
+import { Event } from "@routes/home/event";
 import { catchError, map, of } from "rxjs";
 
 const API_URL = "https://bdoapi.nicolaspaillard.fr/";

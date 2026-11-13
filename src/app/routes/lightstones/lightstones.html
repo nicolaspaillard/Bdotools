@@ -1,0 +1,37 @@
+<p-table class="" [value]="lightstones()" [sortOrder]="1" sortField="Silver">
+  <ng-template #header>
+    <tr>
+      <th>Name</th>
+      <th>Id</th>
+      <th>Stock</th>
+      <th>Price</th>
+      <th pSortableColumn="Quantity">
+        Quantity
+        <p-sortIcon field="Quantity" />
+      </th>
+      <th pSortableColumn="Silver">
+        Silver per crystal
+        <p-sortIcon field="Silver" />
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-item>
+    <tr>
+      <td class="w-full">{{ item.Name }}</td>
+      <td class="p-button-link">
+        <a class="p-button-label" href="https://bdocodex.com/us/item/{{ item.Itemid }}" target="_blank">{{ item.Itemid }}</a>
+      </td>
+      <td>{{ item.Stock }}</td>
+      <td>{{ item.Price }}</td>
+      <td>{{ item.Quantity }}</td>
+      <td>{{ item.Silver }}</td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td class="text-center!" colspan="6">
+        <div class="text-2xl p-20 bg-gray-500/50 rounded-2xl">No data.</div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

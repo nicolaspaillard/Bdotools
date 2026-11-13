@@ -1,6 +1,6 @@
 export class Event {
   End: Date = new Date();
-  ID = "";
+  ID = 0;
   Image = "";
   Tag = "";
   Title = "";
