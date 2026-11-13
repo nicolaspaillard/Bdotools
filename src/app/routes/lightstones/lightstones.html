@@ -3,8 +3,14 @@
     <tr>
       <th>Name</th>
       <th>Id</th>
-      <th>Stock</th>
-      <th>Price</th>
+      <th pSortableColumn="Stock">
+        Stock
+        <p-sortIcon field="Stock" />
+      </th>
+      <th pSortableColumn="Price">
+        Price
+        <p-sortIcon field="Price" />
+      </th>
       <th pSortableColumn="Quantity">
         Quantity
         <p-sortIcon field="Quantity" />
