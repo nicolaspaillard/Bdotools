@@ -12,6 +12,7 @@ const API_URL = "https://bdoapi.nicolaspaillard.fr/";
 export class PearlService {
   private http = inject(HttpClient);
   getPearlItems = (date: Date, type: "outfits" | "pets") => {
+    console.log(formatDate(date, "yyyy-MM-dd HH:00:00", "en-US"));
     date.setMinutes(0, 0, 0);
     return this.http.get<Item[]>(API_URL + type + "?date=" + formatDate(date, "yyyy-MM-dd HH:00:00", "en-US")).pipe(
       map(res => (res ? res.map(item => new Item(item, (Date.now() - date.getTime()) / 3600000)) : [])),

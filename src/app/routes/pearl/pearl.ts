@@ -6,6 +6,7 @@ import { SliderModule } from "@openng/optimus-ui/slider";
 import { TableModule } from "@openng/optimus-ui/table";
 import { Item } from "@routes/pearl/item";
 import { PearlService } from "@routes/pearl/pearl.service";
+import { ToastService } from "@services/toast.service";
 
 @Component({
   selector: "app-pearl",
@@ -16,8 +17,11 @@ import { PearlService } from "@routes/pearl/pearl.service";
 export class Pearl {
   pearlItems = signal<Item[]>([]);
   private pearlService = inject(PearlService);
-  constructor() {
-    this.getPearlItems(3, "outfits");
-  }
+  private toastService = inject(ToastService);
+  copy = (text: string) =>
+    navigator.clipboard
+      .writeText(text)
+      .then(() => this.toastService.success("Success", `Copied "${text}"`))
+      .catch(() => this.toastService.error("Error", `Couldn't copy "${text}"`));
   getPearlItems = (hours: number, type: "outfits" | "pets") => this.pearlService.getPearlItems(new Date(Date.now() - hours * 3600000), type).subscribe(items => this.pearlItems.set(items));
 }
